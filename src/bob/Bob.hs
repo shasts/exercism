@@ -1,18 +1,14 @@
-module Bob
-(responseFor) where
+module Bob (responseFor) where
 
-import Data.Text as T
 import Data.Char
 
-responseFor :: [Char] -> [Char]
-responseFor xs = responseForInternal $ T.pack xs
-
-isEmptyText :: Text -> Bool
-isEmptyText text = T.length (T.strip text) == 0
-
-responseForInternal :: Text -> [Char]
-responseForInternal text 
-	|((T.any (isLower) text) == False) && (T.any(isUpper) text)  = "Woah, chill out!"
+responseFor :: String -> String
+responseFor text 
 	| isEmptyText text = "Fine. Be that way!"
-	| T.last text == '?' = "Sure."
+	| isShout  = "Woah, chill out!" 		
+	| last text == '?' = "Sure."
 	| otherwise = "Whatever."
+	where isShout = any isAlpha text && (all isUpper $ filter isAlpha text)
+
+isEmptyText :: String -> Bool
+isEmptyText = all isSpace
