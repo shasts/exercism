@@ -1,9 +1,11 @@
 module DNA (toRNA)  where
 
+import Data.Maybe
+
 toRNA :: String -> String
-toRNA input = map mapping input where 
-	mapping 'A' = 'U'
-	mapping 'C' = 'G'
-	mapping 'G' = 'C'
-	mapping 'T' = 'A'
-	mapping '_' = error "Invalid Mapping"
+toRNA = map dnaToRna where 
+	dnaToRna 'A' = 'U'
+	dnaToRna 'C' = 'G'
+	dnaToRna 'G' = 'C'
+	dnaToRna 'T' = 'A'
+	dnaToRna dna = error $ "Invalid nucleotide: " ++ show dna
